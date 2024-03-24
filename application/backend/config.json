@@ -1,4 +1,4 @@
-{"bootstrap.servers": "localhost:35455",
+{"bootstrap.servers": "localhost:9095",
   "preprocess_topic": "preprocessing",
   "inference_topic": "inference",
 

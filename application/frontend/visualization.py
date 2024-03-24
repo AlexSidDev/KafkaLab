@@ -21,7 +21,6 @@ if __name__ == '__main__':
 
     topic = config['inference_topic']
     consumer_conf = {'bootstrap.servers': config['bootstrap.servers'],
-                     'auto.offset.reset': 'earliest',
                      'group.id': 'my_consumers'}
 
     consumer = Consumer(consumer_conf)
