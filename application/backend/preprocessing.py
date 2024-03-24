@@ -39,10 +39,12 @@ if __name__ == '__main__':
     while True:
         sample_ind = random.randint(1, num_samples - 1)  # first row is not valid
         sample = data[sample_ind]
-
+        if sample.startswith('-DOCSTART-'):
+            continue
         red_sample = process_sample(sample)
         processed_sample = processor(red_sample)
-        print(processed_sample)
+        processed_sample['words'] = red_sample['words']
+
         producer.produce(topic, key='1', value=json.dumps(processed_sample))
         producer.flush()
 

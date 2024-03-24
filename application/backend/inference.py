@@ -36,17 +36,18 @@ if __name__ == '__main__':
         msg = consumer.poll(1000)
 
         if msg is not None:
-            print(msg.value())
+
             sample_data = json.loads(msg.value().decode('utf-8'))
             labels = sample_data.pop('labels')
+            words = sample_data.pop('words')
             word_inds = sample_data.pop('word_inds')
 
             input_ids = torch.tensor(sample_data['input_ids'], dtype=torch.int64).to(device).unsqueeze(0)
             logits = model(input_ids=input_ids).logits
-            preds = torch.argmax(logits, -1)[0]
+            preds = torch.argmax(logits, -1)[0].tolist()
 
-            outputs = {'preds': preds, 'labels': labels, 'word_inds': word_inds}
-            producer.produce(producer_topic, key='1', value=json.dumps(processed_sample))
+            outputs = {'preds': preds, 'labels': labels, 'word_inds': word_inds, 'words': words}
+            producer.produce(producer_topic, key='1', value=json.dumps(outputs))
             producer.flush()
 
 

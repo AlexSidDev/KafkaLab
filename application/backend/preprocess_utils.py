@@ -20,8 +20,8 @@ class TokenizerNER:
 
     def __call__(self, sample: dict):
         tokenized_inputs = self.base_tokenizer(sample['words'], truncation=True,
-                                          is_split_into_words=True,
-                                          add_special_tokens=False)
+                                               is_split_into_words=True,
+                                               add_special_tokens=False)
 
         row_tokens, word_inds = tokenized_inputs['input_ids'], tokenized_inputs.word_ids()
 
